@@ -15,7 +15,12 @@ if (!fs.existsSync(basePath)) {
 }
 const childProcess = require("child_process");
 
-childProcess.execSync(`unzip -o ${zipFile} -d ${basePath}`);
+// Windows
+if (process.platform === "win32") {
+  childProcess.execSync(`tar -xf "${zipFile}" -C "${basePath}"`);
+} else {
+  childProcess.execSync(`unzip -o "${zipFile}" -d "${basePath}"`);
+}
 
 const decodeString = (input) => {
   const bytes = Uint8Array.from(input, char => char.charCodeAt(0));

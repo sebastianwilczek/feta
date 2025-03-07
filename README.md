@@ -1,3 +1,5 @@
+![Feta](./feta.png)
+
 # Feta - Keep your Instagram account
 
 Feta is a tool that creates a backup of your Instagram account, including your profile, posts, reels and stories. It uses the data that you can request from Instagram and creates a website that you can publish on your own terms.
@@ -31,7 +33,7 @@ Instagram will now prepare your data and send you an email once it is ready to d
 
 ### Run Feta
 
-To run Feta, you need to have Node.js and npm installed on your computer. If you don't have them installed, you can download them from [nodejs.org](https://nodejs.org/).
+To run Feta, you need to have Node.js installed on your computer. If you don't have it installed, you can download it from [nodejs.org](https://nodejs.org/).
 
 Once you have Node.js and npm installed, you can run Feta by following these steps:
 

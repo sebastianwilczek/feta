@@ -49,9 +49,9 @@ To run Feta, you need to have Node.js installed on your computer. If you don't h
 
 Once you have Node.js and npm installed, you can run Feta by following these steps:
 
-1. Download the latest release of Feta from the [releases page](TODO)
-2. Unpack the release ZIP file that you downloaded
-3. Place the ZIP file that you downloaded from Instagram in the same folder as the unpacked Feta release
+1. Download the latest release of Feta [here](https://github.com/sebastianwilczek/feta/archive/refs/tags/latest.zip)
+2. Unpack the `feta-latest.zip` file that you downloaded
+3. Place the ZIP file that you downloaded from Instagram in the same folder as Feta (likely called `feta-latest` or similar)
 4. Open a terminal and navigate to the folder where you unpacked Feta
 5. Run the following command:
 

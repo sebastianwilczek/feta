@@ -192,6 +192,35 @@
             pointer-events: none;
         }
 
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .feta-link {
+            color: var(--link-color);
+            text-decoration: none;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            background-color: var(--background-color);
+            filter: drop-shadow(0 0 0.125rem black);
+            border-radius: 1rem;
+            padding: 0 0.5rem 0 0;
+            transition: opacity 0.2s;
+        }
+
+        .feta-link:hover {
+            cursor: pointer;
+            opacity: 0.5;
+        }
+
         .post-modal {
             display: none;
             position: fixed;
@@ -554,6 +583,9 @@
                     {{/if}}
                 </div>
             {{/each}}
+        </div>
+        <div class="footer">
+            <a class="feta-link" href="https://github.com/sebastianwilczek/feta" target="_blank" rel="noopener noreferrer"><img class="feta-logo" src="feta.png" alt="Feta"> Create your own Feta page</a>
         </div>
     </div>
     <div class="post-modal">

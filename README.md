@@ -8,6 +8,10 @@ Feta is a tool that creates a backup of your Instagram account, including your p
 
 The idea is to be able to keep what you have shared on Instagram, once you decide to delete your account.
 
+## Disclaimer
+
+This project is in no way affiliated with Instagram or Meta. It is a personal project to help people keep their Instagram data in a format that is easy to share and publish, without having to keep their account, if they wish to delete it.
+
 ## How to use
 
 To make use of Feta, you need to request a download of your data from Instagram, run Feta, and publish the output to a place of your choice.

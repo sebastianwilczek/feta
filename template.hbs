@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{username}} - Feta</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="feta.png" type="image/png">
+    <style>
+        :root {
+            --background-color-d: #0b1014;
+            --text-color-d: #f9f9f9;
+            --link-color-d: rgb(224, 241, 255);
+            --background-color: #ffffff;
+            --text-color: #000000;
+            --link-color: rgb(0, 55, 107);
+        }
+
+        body {
+            background-color: var(--background-color);
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 60rem;
+            min-width: 20rem;
+            flex: 1;
+            margin: 1rem;
+        }
+
+        @media screen and (max-width: 700px) {
+            .container {
+                margin: 0;
+            }
+        }
+
+        .header {
+            padding: 1rem;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .username {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0;
+            padding: 0;
+        }
+
+        .feta-header {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .feta-logo {
+            width: 3.25rem;
+            height: 3.25rem;
+            -webkit-filter: drop-shadow(0 0 0.125rem #000000);
+            filter: drop-shadow(0 0 0.125rem #000000);
+        }
+
+        .feta {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0;
+            padding: 0;
+        }
+
+        .name-picture {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .picture {
+            width: 25%;
+            height: unset;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            margin: 1rem;
+            max-width: 12rem;
+        }
+
+        .picture-with-stories {
+            outline: 0.25rem solid;
+            outline-offset: 0.25rem;
+            outline-color: var(--link-color);
+            transition: opacity 0.2s;
+        }
+
+        .picture-with-stories:hover {
+            cursor: pointer;
+            opacity: 0.5;
+        }
+
+        .name-stats {
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+            gap: 1rem;
+        }
+
+        .name {
+            font-size: 1rem;
+            margin: 0;
+            padding: 0;
+            font-weight: 400;
+        }
+
+        .stats {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-number {
+            font-weight: bold;
+        }
+
+        .bio {
+            font-size: 0.875rem;
+            padding: 0.25rem 1rem 1.5rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            white-space: pre-line;
+        }
+
+        .website {
+            color: var(--link-color);
+            text-decoration: none;
+            font-weight: bold;
+            display: flex;
+            flex-direction: row;
+            gap: 0.25rem;
+            line-height: 0.25rem;
+        }
+
+        .posts {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.125rem;
+            padding-bottom: 4rem;
+        }
+
+        .post {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            height: unset;
+            aspect-ratio: 1;
+            transition: opacity 0.2s;
+        }
+
+        .post:hover {
+            cursor: pointer;
+            opacity: 0.5;
+        }
+
+        .post-image {
+            object-fit: cover;
+            width: 100%;
+            height: unset;
+            aspect-ratio: 1;
+        }
+
+        .post-video {
+            object-fit: cover;
+            width: 100%;
+            height: unset;
+            aspect-ratio: 1;
+        }
+
+        .post-video-overlay {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            color: var(--background-color);
+            pointer-events: none;
+        }
+
+        .post-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1;
+        }
+
+        @media screen and (max-width: 700px) {
+            .post-modal {
+                background-color: black;
+            }
+        }
+
+        .post-modal-content {
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            border-radius: 0.25rem;
+            overflow: hidden;
+            width: 100%;
+            max-width: 50vmin;
+            position: relative;
+        }
+
+        @media screen and (max-width: 700px) {
+            .post-modal-content {
+                border-radius: 0;
+                max-width: 100vmin;
+            }
+        }
+
+        .post-modal-image {
+            display: none;
+            width: 100%;
+        }
+
+        .post-modal-video {
+            display: none;
+            width: 100%;
+        }
+
+        .post-modal-footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: flex-start;
+            padding: 1rem;
+            color: white;
+            white-space: pre-line;
+            flex-direction: column;
+            gap: 0.5rem;
+            filter: drop-shadow(0 0 0.25rem black);
+            pointer-events: none;
+        }
+
+        .post-modal-close {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            color: white;
+            cursor: pointer;
+            filter: drop-shadow(0 0 0.125rem black);
+        }
+
+        .post-modal-footer-date {
+            font-size: 0.75rem;
+        }
+
+        .story-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1;
+        }
+
+        @media screen and (max-width: 700px) {
+            .story-modal {
+                background-color: black;
+            }
+        }
+
+        .story-content {
+            margin: auto;
+            width: 100%;
+            max-width: 50vmin;
+            position: relative;
+        }
+
+        @media screen and (max-width: 700px) {
+            .story-content {
+                border-radius: 0;
+                max-width: 100vmin;
+                max-height: 100vh;
+            }
+        }
+
+        .story {
+            display: none;
+            margin: auto;
+            flex-direction: column;
+            width: 100%;
+            position: relative;
+        }
+
+        @media screen and (max-width: 700px) {
+            .story-video {
+                max-height: 100vh;
+            }
+
+            .story-image {
+                max-height: 100vh;
+                object-fit: contain;
+            }
+        }
+
+        .story-overlay-left-arrow {
+            position: absolute;
+            top: 10rem;
+            bottom: 10rem;
+            left: 1rem;
+            color: var(--background-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            filter: drop-shadow(0 0 0.125rem black);
+        }
+
+        .story-overlay-right-arrow {
+            position: absolute;
+            top: 10rem;
+            bottom: 10rem;
+            right: 1rem;
+            color: var(--background-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            filter: drop-shadow(0 0 0.125rem black);
+        }
+
+        .story-overlay-bars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0.25rem;
+            border-radius: 0.25rem;
+            overflow: hidden;
+            filter: drop-shadow(0 0 0.125rem black);
+        }
+
+        .story-overlay-bar {
+            flex: 1;
+            height: 0.5rem;
+            background-color: white;
+            overflow: hidden;
+        }
+
+        .story-overlay-bar:hover {
+            cursor: pointer;
+            opacity: 1 !important;
+        }
+
+        .story-overlay-date {
+            position: absolute;
+            top: 1rem;
+            left: 0.5rem;
+            padding: 0.25rem;
+            color: white;
+            font-size: 0.75rem;
+            filter: drop-shadow(0 0 0.125rem black);
+        }
+
+        .story-overlay-close {
+            position: absolute;
+            top: 1.25rem;
+            right: 0.5rem;
+            color: white;
+            cursor: pointer;
+            filter: drop-shadow(0 0 0.125rem black);
+        }
+    </style>
+    <script>
+        let storyIndex = 0;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const posts = document.querySelectorAll('.post');
+            const postModal = document.querySelector('.post-modal');
+            const postModalContent = document.querySelector('.post-modal-content');
+            const postModalImage = document.querySelector('.post-modal-image');
+            const postModalVideo = document.querySelector('.post-modal-video');
+            const postModalFooter = document.querySelector('.post-modal-footer');
+            const postModalDate = document.querySelector('.post-modal-footer-date');
+            const postModalClose = document.querySelector('.post-modal-close');
+
+            posts.forEach(post => {
+                post.addEventListener('click', () => {
+                    postModal.style.display = 'flex';
+                    post.getAttribute('date') && (postModalDate.textContent = post.getAttribute('date'));
+                    if (post.getAttribute('isVideo') === 'true') {
+                        postModalVideo.style.display = 'block';
+                        postModalVideo.src = post.querySelector('.post-video source').src;
+                        postModalFooter.querySelector('#post-modal-footer-text').textContent = post.querySelector('.post-video').ariaLabel;
+                    } else {
+                        postModalImage.style.display = 'block';
+                        postModalImage.src = post.querySelector('.post-image').src;
+                        postModalFooter.querySelector('#post-modal-footer-text').textContent = post.querySelector('.post-image').alt;
+                    }
+                });
+            });
+
+            postModalClose.addEventListener('click', () => {
+                postModal.style.display = 'none';
+                postModalImage.style.display = 'none';
+                postModalImage.src = '';
+                postModalVideo.style.display = 'none';
+                postModalVideo.src = '';
+            });
+
+            const pictureWithStories = document.querySelector('.picture-with-stories');
+            const storyModal = document.querySelector('.story-modal');
+            const stories = document.querySelectorAll('.story');
+            const storyBars = document.querySelectorAll('.story-overlay-bar');
+
+            storyBars.forEach((bar, index) => {
+                bar.addEventListener('click', () => {
+                    stories[storyIndex].querySelector('video')?.pause();
+                    stories[storyIndex].style.display = 'none';
+                    storyIndex = index;
+                    stories[storyIndex].style.display = 'flex';
+                    stories[storyIndex].querySelector('video')?.play();
+                    markStoryBars();
+                });
+            });
+
+            const markStoryBars = () => {
+                storyBars.forEach((bar, index) => {
+                    if (index >= storyIndex) {
+                        bar.style.opacity = 0.5;
+                    } else {
+                        bar.style.opacity = 1;
+                    }
+                });
+            };
+
+            if (pictureWithStories) {
+                pictureWithStories.addEventListener('click', () => {
+                    storyModal.style.display = 'flex';
+                    stories[storyIndex].style.display = 'flex';
+                    stories[storyIndex].querySelector('video')?.play();
+                    markStoryBars();
+                });
+            }
+
+            const leftArrow = document.querySelector('.story-overlay-left-arrow');
+            const rightArrow = document.querySelector('.story-overlay-right-arrow');
+            const storyClose = document.querySelector('.story-overlay-close');
+
+            const goBackStory = () => {
+                stories[storyIndex].querySelector('video')?.pause();
+                stories[storyIndex].style.display = 'none';
+                storyIndex = (storyIndex - 1 + stories.length) % stories.length;
+                stories[storyIndex].style.display = 'flex';
+                stories[storyIndex].querySelector('video')?.play();
+                markStoryBars();
+            };
+            const goForwardStory = () => {
+                stories[storyIndex].querySelector('video')?.pause();
+                stories[storyIndex].style.display = 'none';
+                storyIndex = (storyIndex + 1) % stories.length;
+                stories[storyIndex].style.display = 'flex';
+                stories[storyIndex].querySelector('video')?.play();
+                markStoryBars();
+            };
+
+            leftArrow.addEventListener('click', goBackStory);
+            rightArrow.addEventListener('click', goForwardStory);
+            document.addEventListener('keydown', (event) => {
+                // Only if the story modal is open
+                if (storyModal.style.display === 'flex') {
+                    if (event.key === 'ArrowLeft') {
+                        goBackStory();
+                    } else if (event.key === 'ArrowRight') {
+                        goForwardStory();
+                    }
+                }
+            });
+
+            storyClose.addEventListener('click', () => {
+                storyModal.style.display = 'none';
+                stories[storyIndex].querySelector('video')?.pause();
+            });
+        });
+    </script>
+</html>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="username">{{username}}</h1>
+            <div class="feta-header">
+                <img class="feta-logo" src="feta.png" alt="Feta">
+                <h2 class="feta">Feta</h2>
+            </div>
+        </div>
+        <div class="name-picture">
+            <img class="picture {{#if hasStories}}picture-with-stories{{/if}}" src="/{{username}}/{{profilePicturePath}}" alt="{{username}}">
+            <div class="name-stats">
+                <h3 class="name">{{name}}</h3>
+                <div class="stats">
+                    <div class="stat">
+                        <span class="stat-number">{{numberOfPosts}}</span>
+                        <span>posts</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">{{numberOfFollowers}}</span>
+                        <span>followers</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">{{numberOfFollowing}}</span>
+                        <span>following</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bio">
+            <span>{{bio}}</span>
+            <a class="website" href="{{website}}" target="_blank" rel="noopener noreferrer">
+                <svg fill="currentColor" height="12"  width="12" viewBox="0 0 24 24"><path d="m9.726 5.123 1.228-1.228a6.47 6.47 0 0 1 9.15 9.152l-1.227 1.227m-4.603 4.603-1.228 1.228a6.47 6.47 0 0 1-9.15-9.152l1.227-1.227" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><line fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="8.471" x2="15.529" y1="15.529" y2="8.471"></line></svg>
+                {{websiteDisplay}}
+            </a>
+        </div>
+        <div class="posts">
+            {{#each posts}}
+                <div class="post" isVideo="{{isVideo}}" date="{{date}}">
+                    {{#if isVideo}}
+                        <video class="post-video" aria-label="{{title}}">
+                            <source src="./{{../username}}/{{media}}#t=0.1" type="video/mp4">
+                        </video>
+                        <div class="post-video-overlay">
+                            <svg fill="currentColor" height="20" width="20" viewBox="0 0 24 24">
+                                <path d="M5.888 22.5a3.46 3.46 0 0 1-1.721-.46l-.003-.002a3.451 3.451 0 0 1-1.72-2.982V4.943a3.445 3.445 0 0 1 5.163-2.987l12.226 7.059a3.444 3.444 0 0 1-.001 5.967l-12.22 7.056a3.462 3.462 0 0 1-1.724.462Z"></path>
+                            </svg>
+                        </div>
+                    {{else}}
+                        <img class="post-image" src="./{{../username}}/{{media}}" alt="{{title}}" />
+                    {{/if}}
+                </div>
+            {{/each}}
+        </div>
+    </div>
+    <div class="post-modal">
+        <div class="post-modal-content">
+            <img class="post-modal-image" />
+            <video class="post-modal-video" autoplay loop playsinline>
+                <source type="video/mp4">
+            </video>
+            <div class="post-modal-footer">
+                <span id="post-modal-footer-text"></span>
+                <span class="post-modal-footer-date">13. March 1997</span>
+            </div>
+            <div class="post-modal-close">
+                <svg fill="currentColor" height="20" width="20" viewBox="0 0 24 24">
+                    <polyline fill="none" points="20.643 3.357 12 12 3.353 20.647" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></polyline>
+                    <line fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" x1="20.649" x2="3.354" y1="20.649" y2="3.354"></line>
+                </svg>
+            </div>
+        </div>
+    </div>
+    <div class="story-modal">
+        <div class="story-content">
+            {{#each stories}}
+                <div class="story">
+                    {{#if isVideo}}
+                        <video class="story-video" aria-label="{{title}}" loop playsinline>
+                            <source src="./{{../username}}/{{media}}" type="video/mp4">
+                        </video>
+                    {{else}}
+                        <img class="story-image" src="./{{../username}}/{{media}}" alt="{{title}}" />
+                    {{/if}}
+                    <div class="story-overlay-date">{{date}}</div>
+                </div>
+            {{/each}}
+            <div class="story-overlay-bars">
+                {{#each stories}}
+                    <div class="story-overlay-bar" id="story-overlay-bar-{{@index}}"></div>
+                {{/each}}
+            </div>
+            <div class="story-overlay-left-arrow">
+                <svg fill="currentColor" height="20" width="20" viewBox="0 0 24 24">
+                    <path d="M12.005.503a11.5 11.5 0 1 0 11.5 11.5 11.513 11.513 0 0 0-11.5-11.5Zm2.207 15.294a1 1 0 1 1-1.416 1.412l-4.5-4.51a1 1 0 0 1 .002-1.415l4.5-4.489a1 1 0 0 1 1.412 1.416l-3.792 3.783Z"></path>
+                </svg>
+            </div>
+            <div class="story-overlay-right-arrow">
+                <svg fill="currentColor" height="20" width="20" viewBox="0 0 24 24">
+                    <path d="M12.005.503a11.5 11.5 0 1 0 11.5 11.5 11.513 11.513 0 0 0-11.5-11.5Zm3.707 12.22-4.5 4.488A1 1 0 0 1 9.8 15.795l3.792-3.783L9.798 8.21a1 1 0 1 1 1.416-1.412l4.5 4.511a1 1 0 0 1-.002 1.414Z"></path>
+                </svg>
+            </div>
+            <div class="story-overlay-close">
+                <svg fill="currentColor" height="20" width="20" viewBox="0 0 24 24">
+                    <polyline fill="none" points="20.643 3.357 12 12 3.353 20.647" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></polyline>
+                    <line fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" x1="20.649" x2="3.354" y1="20.649" y2="3.354"></line>
+                </svg>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

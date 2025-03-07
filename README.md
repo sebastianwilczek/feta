@@ -47,7 +47,7 @@ Instagram will now prepare your data and send you an email once it is ready to d
 
 To run Feta, you need to have Node.js installed on your computer. If you don't have it installed, you can download it from [nodejs.org](https://nodejs.org/).
 
-Once you have Node.js and npm installed, you can run Feta by following these steps:
+Once you have Node.js installed, you can run Feta by following these steps:
 
 1. Download the latest release of Feta [here](https://github.com/sebastianwilczek/feta/archive/refs/tags/latest.zip)
 2. Unpack the `feta-latest.zip` file that you downloaded

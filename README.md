@@ -10,7 +10,7 @@ The idea is to be able to keep what you have shared on Instagram, once you decid
 
 ## How to use
 
-To make use of Feta, you need to request a download of your data from Instagram, running Feta, and publish the output to a place of your choice.
+To make use of Feta, you need to request a download of your data from Instagram, run Feta, and publish the output to a place of your choice.
 
 ### Request your data from Instagram
 
@@ -50,3 +50,19 @@ node feta.js
 ```
 
 Feta will now create a website in the `output` folder. This website presents your Instagram data like a profile page.
+
+### Publish the website
+
+Once you have the website inside the `output` folder, you can publish it to a place of your choice. There are plenty of options for this. The following guide is intended for people who are not familiar with web hosting, as a simple way to publish the website.
+
+1. Go to [https://app.netlify.com/drop](https://app.netlify.com/drop)
+2. Drag the `output` folder to the drop area
+3. Netlify will now upload the website and give you a link where you can view it
+4. WATCH OUT: This link is temporary and will be deleted after a while. Make sure to create an account.
+5. Once you have an account, go to [https://app.netlify.com/](https://app.netlify.com/)
+6. Click on the website that was created for you (the name will likely be random)
+7. Click on `Site configuration`
+8. Click on `Change site name`
+9. Choose a new name, for example your Instagram username, if it is available
+10. Click on `Save`
+11. Your Feta profile is now published at `https://[Your chosen name].netlify.app`. You can share this link with others.

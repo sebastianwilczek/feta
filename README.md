@@ -1,4 +1,6 @@
-![Feta](./feta.png)
+<p align="center">
+  <img src="./feta.png" alt="Feta">
+</p>
 
 # Feta - Keep your Instagram account
 

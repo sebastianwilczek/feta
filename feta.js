@@ -130,7 +130,7 @@ fs.writeFileSync(`output/${username}/data.json`, JSON.stringify({
 childProcess.execSync(`rm -rf ${basePath}`);
 
 // Render the HTML
-const handlebars = require("handlebars");
+const handlebars = require("./handlebars.min.js");
 const template = handlebars.compile(fs.readFileSync("template.hbs", "utf-8"));
 const html = template(JSON.parse(fs.readFileSync(`output/${username}/data.json`, "utf-8")));
 fs.writeFileSync(`output/index.html`, html);

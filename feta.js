@@ -55,8 +55,15 @@ const getEntriesFromPost = (post) => {
     isVideo: media.uri.endsWith(".mp4"),
   }));
 }
+
+// Check if the content directory exists
+let contentPath = "content";
+if (!fs.existsSync(`${basePath}/your_instagram_activity/content`)) {
+  contentPath = "media";
+}
+
 const posts = [];
-const postsPath = `${basePath}/your_instagram_activity/content`;
+const postsPath = `${basePath}/your_instagram_activity/${contentPath}`;
 const postsFiles = fs.readdirSync(postsPath).filter(file => file.startsWith("posts_"));
 postsFiles.forEach(file => {
   const postsData = JSON.parse(fs.readFileSync(`${postsPath}/${file}`, "utf-8"));
@@ -64,14 +71,14 @@ postsFiles.forEach(file => {
 });
 
 // Get reels
-const reelsFile = JSON.parse(fs.readFileSync(`${basePath}/your_instagram_activity/content/reels.json`, "utf-8"));
+const reelsFile = JSON.parse(fs.readFileSync(`${basePath}/your_instagram_activity/${contentPath}/reels.json`, "utf-8"));
 reelsFile.ig_reels_media.map(reel => posts.push(...getEntriesFromPost(reel)));
 
 const allPosts = posts.sort((a, b) => b.timestamp - a.timestamp);
 const numberOfPosts = allPosts.length;
 
 // Get stories
-const storiesFile = JSON.parse(fs.readFileSync(`${basePath}/your_instagram_activity/content/stories.json`, "utf-8"));
+const storiesFile = JSON.parse(fs.readFileSync(`${basePath}/your_instagram_activity/${contentPath}/stories.json`, "utf-8"));
 const stories = storiesFile.ig_stories.filter(story => {
   let exists = false;
   try {
